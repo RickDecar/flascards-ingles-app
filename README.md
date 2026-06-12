@@ -1,6 +1,6 @@
 # FlashCine — Aprende inglés con el vocabulario de tus películas y series
 
-App de flashcards para aprender inglés de forma activa. Incluye 100 tarjetas preinstaladas con vocabulario real de películas, series y conversaciones cotidianas, con soporte para crear tu propio vocabulario personalizado.
+App de flashcards para aprender inglés de forma activa. Incluye 122 tarjetas preinstaladas con vocabulario real de películas, series y conversaciones cotidianas, con soporte para crear tu propio vocabulario personalizado.
 
 ## Demo rápida
 
@@ -11,6 +11,7 @@ App de flashcards para aprender inglés de forma activa. Incluye 100 tarjetas pr
 ## Características
 
 - **Modo Estudio** — tarjetas con animación de volteo, navegación manual y marcado de progreso
+- **Pronunciación** — botón 🔊 *Escuchar* para oír la palabra y cada ejemplo (Web Speech API), y botón 🎤 *Practicar* que reconoce tu voz y compara lo dicho con la palabra objetivo (✅/❌)
 - **Progreso por tarjeta** — marca cada palabra como *Dominada* o *Repasar*
 - **Filtro por categoría** — Alta frecuencia, Phrasal Verbs, Expresiones, Verbos, Sustantivos, Adjetivos, Grimm...
 - **Barajar** — aleatoriza el mazo con un clic
@@ -19,15 +20,17 @@ App de flashcards para aprender inglés de forma activa. Incluye 100 tarjetas pr
 - **Categorías personalizadas** — crea nuevas categorías directamente desde el formulario
 - **Persistencia automática** — todo se guarda en `localStorage`, sin backend ni cuenta
 
-## Vocabulario incluido (100 tarjetas)
+## Vocabulario incluido (122 tarjetas)
 
 | Categoría | Descripción |
 |-----------|-------------|
-| Alta frecuencia | 22 palabras imprescindibles del inglés cotidiano |
-| Phrasal Verbs | 29 phrasal verbs esenciales |
-| Expresiones | Frases hechas y coloquialismos |
-| Grimm | Vocabulario de la serie *Grimm* |
-| Verbos, Sustantivos, Adjetivos | Vocabulario general |
+| Phrasal Verbs | 101 phrasal verbs esenciales |
+| Alta frecuencia | 12 palabras imprescindibles del inglés cotidiano |
+| Verbos | 3 verbos |
+| Expresiones | 2 frases hechas y coloquialismos |
+| Sustantivos | 2 sustantivos |
+| Adjetivos | 1 adjetivo |
+| Grimm | 1 término de la serie *Grimm* |
 
 ## Instalación
 
@@ -80,3 +83,11 @@ flascards-ingles-app/
 ### Editar o borrar
 
 Desde la pestaña **Lista**, cada tarjeta tiene botones de edición y borrado.
+
+### Pronunciación
+
+1. Pulsa 🔊 **Escuchar** para oír la pronunciación de la palabra (o de cualquier ejemplo, en el reverso de la tarjeta)
+2. Pulsa 🎤 **Practicar** y di la palabra en voz alta
+3. La app compara lo que entendió con la palabra objetivo y muestra ✅ o ❌
+
+> Requiere un navegador basado en Chromium (Chrome/Edge) con permiso de micrófono. En navegadores sin soporte para `SpeechRecognition` (p. ej. Firefox) se muestra un aviso.

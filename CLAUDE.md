@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**FlashCine** is a React 18 SPA for learning English vocabulary through interactive flashcards. It ships with 100 pre-installed cards (movies/series vocabulary, phrasal verbs, high-frequency words). All data persists client-side via localStorage.
+**FlashCine** is a React 18 SPA for learning English vocabulary through interactive flashcards. It ships with 122 pre-installed cards (movies/series vocabulary, phrasal verbs, high-frequency words). All data persists client-side via localStorage.
 
 **Tech Stack**: React 18, CSS3 (CSS variables + dark theme), JavaScript ES6+, Create React App (react-scripts 5).
 
@@ -16,8 +16,9 @@ All commands run from `flashcards-app/`:
 npm install       # install dependencies
 npm start         # dev server at http://localhost:3000
 npm run build     # production build
-npm test          # run tests
 ```
+
+No test suite is configured (`package.json` has no `test` script).
 
 ## Architecture
 
@@ -57,6 +58,17 @@ Both are saved via `useEffect` watching their respective state values.
 ### Edit Flow
 
 `startEdit(card)` populates the Add form and sets `view` to `"add"`. On save, the card is updated in-place by `id` matching. Legacy cards may have a single `example` string field instead of the `examples` array — handled by `card.example ? [card.example, "", "", "", ""] : ["", "", "", "", ""]`.
+
+### Pronunciation (Web Speech API)
+
+Both card faces include playback (🔊) and recognition (🎤) controls, built on the browser's native Web Speech API — no dependencies, no backend.
+
+- `speakText(text, e)` — module-level helper; uses `SpeechSynthesisUtterance` with `lang = "en-US"` to read the word (front/back) or any individual example sentence (back, one button per example).
+- `practicePronunciation(e)` — uses `SpeechRecognitionAPI` (`window.SpeechRecognition || window.webkitSpeechRecognition`, resolved once at module scope) to capture the spoken word and compare it against `current.word` (case-insensitive, trimmed).
+- `pronunciationResult` state — `{ type: "match" | "no-match" | "error" | "unsupported", heard?, expected? }`, rendered as inline ✅/❌ feedback on the card front. Reset via `useEffect` whenever `current?.id` changes.
+- `listening` state — drives the "🎙️ Escuchando..." hint and a pulse animation on the mic button while recognition is active.
+- All pronunciation buttons call `e.stopPropagation()` so they don't trigger the card flip.
+- `SpeechRecognition` requires a Chromium-based browser and microphone permission; Firefox is unsupported and falls back to the `"unsupported"` feedback message.
 
 ## Styling System
 
