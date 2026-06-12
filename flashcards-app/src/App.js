@@ -38,6 +38,18 @@ function getCategoryColor(cat) {
   return categoryColors[cat] || "#D5D8DC";
 }
 
+const SpeechRecognitionAPI =
+  typeof window !== "undefined" ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
+
+function speakText(text, e) {
+  if (e) e.stopPropagation();
+  if (!text || !("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  window.speechSynthesis.speak(utterance);
+}
+
 export default function App() {
   const [cards, setCards] = useState(() => loadCards());
 
@@ -57,6 +69,8 @@ export default function App() {
   const [editId, setEditId] = useState(null);
   const [shuffled, setShuffled] = useState(false);
   const [deck, setDeck] = useState([]);
+  const [pronunciationResult, setPronunciationResult] = useState(null);
+  const [listening, setListening] = useState(false);
 
   const categories = ["all", ...Array.from(new Set(cards.map(c => c.category)))];
 
@@ -79,6 +93,42 @@ export default function App() {
   useEffect(() => { buildDeck(); }, [buildDeck]);
 
   const current = deck[currentIdx];
+
+  useEffect(() => {
+    setPronunciationResult(null);
+    setListening(false);
+  }, [current?.id]);
+
+  const practicePronunciation = (e) => {
+    e.stopPropagation();
+    if (!current) return;
+    if (!SpeechRecognitionAPI) {
+      setPronunciationResult({ type: "unsupported" });
+      return;
+    }
+    setPronunciationResult(null);
+    setListening(true);
+    const recognition = new SpeechRecognitionAPI();
+    recognition.lang = "en-US";
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = (event) => {
+      const heard = event.results[0][0].transcript.trim();
+      const expected = current.word.trim();
+      const match = heard.toLowerCase() === expected.toLowerCase();
+      setPronunciationResult({ type: match ? "match" : "no-match", heard, expected });
+    };
+
+    recognition.onerror = () => {
+      setPronunciationResult({ type: "error" });
+    };
+
+    recognition.onend = () => {
+      setListening(false);
+    };
+
+    recognition.start();
+  };
 
   const navigate = (dir) => {
     setFlipped(false);
@@ -181,6 +231,23 @@ export default function App() {
                       </span>
                     )}
                     <div className="card-word">{current.word}</div>
+                    <div className="pronounce-row" onClick={e => e.stopPropagation()}>
+                      <button className="sound-btn" onClick={(e) => speakText(current.word, e)} title="Escuchar pronunciación">🔊 Escuchar</button>
+                      <button className={`mic-btn ${listening ? "listening" : ""}`} onClick={practicePronunciation} title="Practicar pronunciación">🎤 Practicar</button>
+                    </div>
+                    {listening && <p className="listening-hint">🎙️ Escuchando...</p>}
+                    {pronunciationResult && (
+                      <div className={`pronunciation-feedback ${pronunciationResult.type}`} onClick={e => e.stopPropagation()}>
+                        {pronunciationResult.type === "unsupported" && "Tu navegador no soporta el reconocimiento de voz."}
+                        {pronunciationResult.type === "error" && "No se pudo reconocer el audio. Inténtalo de nuevo."}
+                        {pronunciationResult.type === "match" && (
+                          <>✅ ¡Correcto! Dijiste: "{pronunciationResult.heard}"</>
+                        )}
+                        {pronunciationResult.type === "no-match" && (
+                          <>❌ Esperado: "{pronunciationResult.expected}" — Entendí: "{pronunciationResult.heard}"</>
+                        )}
+                      </div>
+                    )}
                     <p className="card-hint">Toca para ver el significado</p>
                   </div>
                   <div className="card-back">
@@ -188,8 +255,14 @@ export default function App() {
                       {current.category}
                     </span>
                     <div className="card-meaning">{current.meaning}</div>
+                    <div className="pronounce-row" onClick={e => e.stopPropagation()}>
+                      <button className="sound-btn" onClick={(e) => speakText(current.word, e)} title="Escuchar pronunciación">🔊 {current.word}</button>
+                    </div>
                     {(current.examples || (current.example ? [current.example] : [])).map((ex, i) => (
-                      <div key={i} className="card-example">"{ex}"</div>
+                      <div key={i} className="card-example-row">
+                        <div className="card-example">"{ex}"</div>
+                        <button className="sound-btn small" onClick={(e) => speakText(ex, e)} title="Escuchar ejemplo">🔊</button>
+                      </div>
                     ))}
                   </div>
                 </div>
