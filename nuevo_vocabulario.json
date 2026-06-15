@@ -1,0 +1,110 @@
+[
+  {
+    "word": "Live by your wits",
+    "meaning": "Vivir de tu ingenio / Apañarse con astucia",
+    "category": "Breaking Bad",
+    "examples": [
+      "He's always been one who lives by his wits.",
+      "In this world, you live by your wits or you don't survive.",
+      "Keep your wits about you.",
+      "She lived by her wits since she was a kid.",
+      "Scared out of my wits."
+    ]
+  },
+  {
+    "word": "Bounty",
+    "meaning": "Recompensa / Prima / Botín",
+    "category": "Breaking Bad",
+    "examples": [
+      "There's a bounty on his head.",
+      "Such a large bounty.",
+      "The bounty of nature.",
+      "They put a bounty on the fugitive.",
+      "He collected the bounty in cash."
+    ]
+  },
+  {
+    "word": "Nuance",
+    "meaning": "Matiz / Sutileza",
+    "category": "Prompting / IA",
+    "examples": [
+      "There's a lot of nuance in his performance.",
+      "You're missing the nuance here.",
+      "A nuanced argument.",
+      "AI text often lacks real nuance.",
+      "Pay attention to the nuance of the request."
+    ]
+  },
+  {
+    "word": "Delve",
+    "meaning": "Profundizar / Indagar / Adentrarse",
+    "category": "Prompting / IA",
+    "examples": [
+      "Let's delve deeper into this.",
+      "She delved into his past.",
+      "Don't delve too deep.",
+      "The report delves into the root causes.",
+      "AI models love to delve into topics."
+    ]
+  },
+  {
+    "word": "Grope / Groping",
+    "meaning": "Manosear / Andar a tientas / Buscar a ciegas",
+    "category": "Verbos",
+    "examples": [
+      "He was accused of groping.",
+      "Groping is sexual assault.",
+      "She groped for the light switch.",
+      "We're groping in the dark here.",
+      "We're just groping in the dark with this case."
+    ]
+  },
+  {
+    "word": "Rubric specs",
+    "meaning": "Especificaciones de la rúbrica / Criterios de evaluación",
+    "category": "Prompting / IA",
+    "examples": [
+      "Check the rubric specs before submitting.",
+      "The rubric specs define what counts as a good answer.",
+      "Follow the rubric specs closely.",
+      "The rubric specs were updated yesterday.",
+      "Make sure your output matches the rubric specs."
+    ]
+  },
+  {
+    "word": "Between a rock and a hard place",
+    "meaning": "Entre la espada y la pared",
+    "category": "Expresiones",
+    "examples": [
+      "He was between a rock and a hard place.",
+      "I'm stuck between a rock and a hard place.",
+      "Walter found himself between a rock and a hard place.",
+      "Here's to rock and hard places.",
+      "Both options are bad, I'm between a rock and a hard place."
+    ]
+  },
+  {
+    "word": "Cul-de-sac",
+    "meaning": "Callejón sin salida / Calle sin salida",
+    "category": "Breaking Bad",
+    "examples": [
+      "My truck is in the cul-de-sac.",
+      "They live on a quiet cul-de-sac.",
+      "Park in the cul-de-sac.",
+      "The houses are arranged around a cul-de-sac.",
+      "He turned into the cul-de-sac and stopped."
+    ]
+  },
+  {
+    "word": "Ominous",
+    "meaning": "Ominoso / Siniestro / De mal agüero",
+    "category": "Breaking Bad",
+    "examples": [
+      "The music turned ominous.",
+      "An ominous silence fell over the room.",
+      "Dark, ominous clouds gathered.",
+      "There was something ominous about his tone.",
+      "The ominous music always means trouble."
+    ]
+  }
+]

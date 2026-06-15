@@ -1,28 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
-import { initialCards } from "./data";
+import { useState, useEffect, useCallback, useRef } from "react";
 import "./App.css";
-
-const STORAGE_KEY = "english_flashcards";
-const USER_CARDS_KEY = "english_flashcards_user";
-const PROGRESS_KEY = "english_flashcards_progress";
-
-function loadCards() {
-  try {
-    const saved = localStorage.getItem(USER_CARDS_KEY);
-    const userCards = saved ? JSON.parse(saved) : [];
-    const baseIds = new Set(initialCards.map(c => c.id));
-    const extraUserCards = userCards.filter(c => !baseIds.has(c.id));
-    return [...initialCards, ...extraUserCards];
-  } catch {
-    return initialCards;
-  }
-}
-
-function saveUserCards(allCards) {
-  const baseIds = new Set(initialCards.map(c => c.id));
-  const userCards = allCards.filter(c => !baseIds.has(c.id));
-  localStorage.setItem(USER_CARDS_KEY, JSON.stringify(userCards));
-}
+import {
+  initDB,
+  addCard as dbAddCard,
+  updateCard as dbUpdateCard,
+  deleteCard as dbDeleteCard,
+  setProgress as dbSetProgress,
+  importCards as dbImportCards,
+  exportDatabaseBinary,
+  exportVocabularyJSON,
+  getRecentReviewedWords,
+} from "./db";
+import ChatView from "./ChatView";
 
 const categoryColors = {
   "Expresiones": "#E8A87C",
@@ -51,14 +40,9 @@ function speakText(text, e) {
 }
 
 export default function App() {
-  const [cards, setCards] = useState(() => loadCards());
-
-  const [progress, setProgress] = useState(() => {
-    try {
-      const saved = localStorage.getItem(PROGRESS_KEY);
-      return saved ? JSON.parse(saved) : {};
-    } catch { return {}; }
-  });
+  const [cards, setCards] = useState([]);
+  const [progress, setProgress] = useState({});
+  const [dbReady, setDbReady] = useState(false);
 
   const [view, setView] = useState("study"); // study | add | list
   const [filter, setFilter] = useState("all");
@@ -71,16 +55,25 @@ export default function App() {
   const [deck, setDeck] = useState([]);
   const [pronunciationResult, setPronunciationResult] = useState(null);
   const [listening, setListening] = useState(false);
+  const [importMessage, setImportMessage] = useState(null);
+  const importInputRef = useRef(null);
+  const [recentWords, setRecentWords] = useState([]);
 
   const categories = ["all", ...Array.from(new Set(cards.map(c => c.category)))];
 
   useEffect(() => {
-    saveUserCards(cards);
-  }, [cards]);
+    initDB().then(({ cards: dbCards, progress: dbProgress }) => {
+      setCards(dbCards);
+      setProgress(dbProgress);
+      setDbReady(true);
+    });
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  }, [progress]);
+    if (dbReady && view === "chat") {
+      setRecentWords(getRecentReviewedWords());
+    }
+  }, [dbReady, view]);
 
   const buildDeck = useCallback(() => {
     let filtered = filter === "all" ? cards : cards.filter(c => c.category === filter);
@@ -139,6 +132,7 @@ export default function App() {
 
   const markProgress = (status) => {
     if (!current) return;
+    dbSetProgress(current.id, status);
     setProgress(p => ({ ...p, [current.id]: status }));
     if (currentIdx < deck.length - 1) navigate(1);
   };
@@ -148,19 +142,61 @@ export default function App() {
     const cleanExamples = newCard.examples.filter(e => e.trim());
     const cardToSave = { ...newCard, examples: cleanExamples };
     if (editId !== null) {
+      dbUpdateCard(editId, cardToSave);
       setCards(cs => cs.map(c => c.id === editId ? { ...c, ...cardToSave } : c));
       setEditId(null);
     } else {
-      const id = Date.now();
-      setCards(cs => [...cs, { id, type: "word", ...cardToSave }]);
+      const saved = dbAddCard(cardToSave);
+      setCards(cs => [...cs, saved]);
     }
     setNewCard({ word: "", meaning: "", examples: ["", "", "", "", ""], category: "Alta frecuencia" });
     setShowForm(false);
   };
 
   const deleteCard = (id) => {
+    dbDeleteCard(id);
     setCards(cs => cs.filter(c => c.id !== id));
     setProgress(p => { const np = { ...p }; delete np[id]; return np; });
+  };
+
+  const handleImportJson = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target.result);
+        const { added, updated, cards: newCards } = dbImportCards(data);
+        setCards(newCards);
+        setImportMessage({ type: "success", text: `${added} palabras nuevas añadidas, ${updated} palabras actualizadas con nuevos ejemplos.` });
+      } catch {
+        setImportMessage({ type: "error", text: "No se pudo importar el archivo. Comprueba que sea un JSON válido con el formato esperado." });
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  };
+
+  const handleExportDatabase = () => {
+    const binary = exportDatabaseBinary();
+    const blob = new Blob([binary], { type: "application/x-sqlite3" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "flashcards.sqlite";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleExportVocabularyJson = () => {
+    const data = exportVocabularyJSON();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "vocabulario.json";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const startEdit = (card) => {
@@ -175,6 +211,17 @@ export default function App() {
   const known = Object.values(progress).filter(v => v === "known").length;
   const learning = Object.values(progress).filter(v => v === "learning").length;
 
+  if (!dbReady) {
+    return (
+      <div className="app">
+        <div className="loading-screen">
+          <span className="logo-icon">🎬</span>
+          <p>Cargando base de datos...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -187,6 +234,7 @@ export default function App() {
           <nav className="nav">
             <button className={`nav-btn ${view === "study" ? "active" : ""}`} onClick={() => setView("study")}>Estudiar</button>
             <button className={`nav-btn ${view === "list" ? "active" : ""}`} onClick={() => setView("list")}>Vocabulario</button>
+            <button className={`nav-btn ${view === "chat" ? "active" : ""}`} onClick={() => setView("chat")}>Conversar</button>
             <button className={`nav-btn add-btn`} onClick={() => { setView("add"); setShowForm(true); setEditId(null); setNewCard({ word: "", meaning: "", examples: ["","","","",""], category: "Alta frecuencia" }); }}>+ Añadir</button>
           </nav>
         </div>
@@ -287,6 +335,24 @@ export default function App() {
               {categories.map(c => <option key={c} value={c}>{c === "all" ? "Todas" : c}</option>)}
             </select>
           </div>
+          <div className="list-toolbar">
+            <input
+              type="file"
+              accept=".json,application/json"
+              ref={importInputRef}
+              onChange={handleImportJson}
+              style={{ display: "none" }}
+            />
+            <button className="toolbar-btn" onClick={() => importInputRef.current?.click()}>📥 Importar JSON</button>
+            <button className="toolbar-btn" onClick={handleExportDatabase}>🗄️ Exportar base de datos</button>
+            <button className="toolbar-btn" onClick={handleExportVocabularyJson}>📤 Exportar vocabulario a JSON</button>
+          </div>
+          {importMessage && (
+            <div className={`import-message ${importMessage.type}`}>
+              {importMessage.text}
+              <button className="close-msg-btn" onClick={() => setImportMessage(null)}>✕</button>
+            </div>
+          )}
           <div className="card-list">
             {(filter === "all" ? cards : cards.filter(c => c.category === filter)).map(card => (
               <div key={card.id} className="list-item">
@@ -344,6 +410,8 @@ export default function App() {
           </div>
         </main>
       )}
+
+      {view === "chat" && <ChatView recentWords={recentWords} />}
     </div>
   );
 }
