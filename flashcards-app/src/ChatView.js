@@ -5,6 +5,7 @@ import {
   DEFAULT_MODEL,
   MODEL_STORAGE_KEY,
 } from "./ollama";
+import { speakText, SpeechRecognitionAPI } from "./services/speech";
 
 function FeedbackList({ items }) {
   if (items.length === 0) {
@@ -33,7 +34,10 @@ export default function ChatView({ recentWords }) {
   const [error, setError] = useState(null);
   const [feedback, setFeedback] = useState([]);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [autoSpeak, setAutoSpeak] = useState(true);
   const messagesEndRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem(MODEL_STORAGE_KEY, model);
@@ -43,11 +47,16 @@ export default function ChatView({ recentWords }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, sending]);
 
-  const handleSend = async () => {
-    const text = input.trim();
-    if (!text || sending) return;
+  // Detener reconocimiento al desmontar
+  useEffect(() => {
+    return () => recognitionRef.current?.abort();
+  }, []);
 
-    const userMessage = { role: "user", content: text };
+  const handleSend = async (text) => {
+    const msg = (text || input).trim();
+    if (!msg || sending) return;
+
+    const userMessage = { role: "user", content: msg };
     const history = [...messages, userMessage];
     setMessages(history);
     setInput("");
@@ -55,8 +64,8 @@ export default function ChatView({ recentWords }) {
     setSending(true);
 
     const feedbackId = Date.now();
-    setFeedback(f => [...f, { id: feedbackId, forMessage: text, text: "", loading: true }]);
-    getFeedback(model, text)
+    setFeedback(f => [...f, { id: feedbackId, forMessage: msg, text: "", loading: true }]);
+    getFeedback(model, msg)
       .then(feedbackText => {
         setFeedback(f => f.map(item => item.id === feedbackId ? { ...item, text: feedbackText, loading: false } : item));
       })
@@ -67,6 +76,7 @@ export default function ChatView({ recentWords }) {
     try {
       const reply = await sendChatMessage(model, history, recentWords);
       setMessages(m => [...m, { role: "assistant", content: reply }]);
+      if (autoSpeak) speakText(reply);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -81,18 +91,59 @@ export default function ChatView({ recentWords }) {
     }
   };
 
+  const startListening = () => {
+    if (!SpeechRecognitionAPI) {
+      setError("Tu navegador no soporta el reconocimiento de voz.");
+      return;
+    }
+    if (listening) {
+      recognitionRef.current?.abort();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const recognition = new SpeechRecognitionAPI();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setListening(true);
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.trim();
+      handleSend(transcript);
+    };
+
+    recognition.onerror = () => setListening(false);
+    recognition.onend = () => setListening(false);
+
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
+
   return (
     <main className="chat-view">
       <div className="chat-header">
         <h2>💬 Conversar</h2>
-        <div className="model-select-row">
-          <label htmlFor="ollama-model">Modelo Ollama</label>
-          <input
-            id="ollama-model"
-            value={model}
-            onChange={e => setModel(e.target.value)}
-            placeholder={DEFAULT_MODEL}
-          />
+        <div className="chat-header-controls">
+          <div className="model-select-row">
+            <label htmlFor="ollama-model">Modelo Ollama</label>
+            <input
+              id="ollama-model"
+              value={model}
+              onChange={e => setModel(e.target.value)}
+              placeholder={DEFAULT_MODEL}
+            />
+          </div>
+          <button
+            className={`autospeak-toggle ${autoSpeak ? "on" : ""}`}
+            onClick={() => { setAutoSpeak(s => !s); window.speechSynthesis.cancel(); }}
+            title={autoSpeak ? "Auto-lectura activada — pulsa para desactivar" : "Auto-lectura desactivada — pulsa para activar"}
+          >
+            {autoSpeak ? "🔊 Voz ON" : "🔇 Voz OFF"}
+          </button>
         </div>
       </div>
 
@@ -108,24 +159,44 @@ export default function ChatView({ recentWords }) {
         <div className="chat-main">
           <div className="chat-messages">
             {messages.length === 0 && (
-              <p className="chat-empty">Escribe algo en inglés para empezar a conversar con la IA.</p>
+              <p className="chat-empty">Escribe o habla en inglés para empezar a conversar con la IA.</p>
             )}
             {messages.map((m, i) => (
-              <div key={i} className={`chat-bubble ${m.role}`}>{m.content}</div>
+              <div key={i} className={`chat-bubble ${m.role}`}>
+                {m.content}
+                {m.role === "assistant" && (
+                  <button
+                    className="bubble-speak-btn"
+                    onClick={() => speakText(m.content)}
+                    title="Escuchar respuesta"
+                  >
+                    🔊
+                  </button>
+                )}
+              </div>
             ))}
             {sending && <div className="chat-bubble assistant typing">···</div>}
             <div ref={messagesEndRef} />
           </div>
           <div className="chat-input-row">
+            <button
+              className={`chat-mic-btn ${listening ? "listening" : ""}`}
+              onClick={startListening}
+              disabled={sending}
+              title={listening ? "Escuchando... pulsa para cancelar" : "Hablar en inglés"}
+            >
+              {listening ? "🎙️" : "🎤"}
+            </button>
             <input
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Escribe en inglés..."
-              disabled={sending}
+              placeholder={listening ? "Escuchando..." : "Escribe en inglés..."}
+              disabled={sending || listening}
             />
-            <button className="chat-send-btn" onClick={handleSend} disabled={sending || !input.trim()}>Enviar</button>
+            <button className="chat-send-btn" onClick={() => handleSend()} disabled={sending || listening || !input.trim()}>Enviar</button>
           </div>
+          {listening && <p className="chat-listening-hint">🎙️ Escuchando... habla en inglés y enviaré tu mensaje automáticamente.</p>}
         </div>
 
         <aside className="feedback-panel">
