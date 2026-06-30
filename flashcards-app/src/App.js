@@ -19,6 +19,7 @@ export default function App() {
     updateCard,
     deleteCard,
     markProgress,
+    toggleIncidir,
     importCards,
     exportDatabase,
     exportVocabulary,
@@ -28,10 +29,11 @@ export default function App() {
   const [view, setView] = useState("study");
   const [filter, setFilter] = useState("all");
   const [shuffled, setShuffled] = useState(false);
+  const [incidirMode, setIncidirMode] = useState(false);
   const [editCard, setEditCard] = useState(null);
   const [recentWords, setRecentWords] = useState([]);
 
-  const { deck, currentIdx, flipped, flip, navigate, buildDeck } = useDeck(cards, filter, shuffled);
+  const { deck, currentIdx, flipped, flip, navigate, buildDeck } = useDeck(cards, filter, shuffled, incidirMode);
 
   const categories = ["all", ...Array.from(new Set(cards.map(c => c.category)))];
 
@@ -110,11 +112,14 @@ export default function App() {
           onBuildDeck={buildDeck}
           progress={progress}
           onMarkProgress={markProgress}
+          onToggleIncidir={toggleIncidir}
           filter={filter}
           onFilterChange={setFilter}
           categories={categories}
           shuffled={shuffled}
           onShuffleToggle={() => setShuffled(s => !s)}
+          incidirMode={incidirMode}
+          onToggleIncidirMode={() => setIncidirMode(m => !m)}
           known={known}
           learning={learning}
           totalCards={cards.length}

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS cards (
   word TEXT NOT NULL,
   meaning TEXT NOT NULL,
   category TEXT NOT NULL DEFAULT 'Sin categoría',
+  incidir INTEGER NOT NULL DEFAULT 0,
   created_at INTEGER DEFAULT (strftime('%s','now'))
 );
 
@@ -94,6 +95,14 @@ function seed() {
   });
 }
 
+function migrateDB() {
+  try {
+    db.run("ALTER TABLE cards ADD COLUMN incidir INTEGER NOT NULL DEFAULT 0");
+  } catch (_) {
+    // column already exists
+  }
+}
+
 export async function initDB() {
   if (db) return { cards: getAllCards(), progress: getProgress() };
 
@@ -103,6 +112,7 @@ export async function initDB() {
   if (saved) {
     db = new SQL.Database(new Uint8Array(saved));
     db.run("PRAGMA foreign_keys = ON;");
+    migrateDB();
   } else {
     db = new SQL.Database();
     db.run("PRAGMA foreign_keys = ON;");
@@ -116,10 +126,10 @@ export async function initDB() {
 
 export function getAllCards() {
   const cards = [];
-  const cardsRes = db.exec("SELECT id, type, word, meaning, category FROM cards ORDER BY id ASC");
+  const cardsRes = db.exec("SELECT id, type, word, meaning, category, incidir FROM cards ORDER BY id ASC");
   if (cardsRes.length) {
-    cardsRes[0].values.forEach(([id, type, word, meaning, category]) => {
-      cards.push({ id, type, word, meaning, category, examples: [] });
+    cardsRes[0].values.forEach(([id, type, word, meaning, category, incidir]) => {
+      cards.push({ id, type, word, meaning, category, incidir: !!incidir, examples: [] });
     });
   }
 
@@ -279,6 +289,11 @@ export function importCards(items) {
 
   schedulePersist();
   return { added, updated, cards: getAllCards() };
+}
+
+export function setIncidir(cardId, value) {
+  db.run("UPDATE cards SET incidir = ? WHERE id = ?", [value ? 1 : 0, cardId]);
+  schedulePersist();
 }
 
 export function exportDatabaseBinary() {

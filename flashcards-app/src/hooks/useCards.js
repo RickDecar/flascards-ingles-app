@@ -6,6 +6,7 @@ import {
   updateCard as dbUpdateCard,
   deleteCard as dbDeleteCard,
   setProgress as dbSetProgress,
+  setIncidir as dbSetIncidir,
   importCards as dbImportCards,
   exportDatabaseBinary,
   exportVocabularyJSON,
@@ -47,6 +48,16 @@ export function useCards() {
     setProgress(p => ({ ...p, [cardId]: status }));
   }, []);
 
+  const toggleIncidir = useCallback((cardId) => {
+    setCards(cs => {
+      const card = cs.find(c => c.id === cardId);
+      if (!card) return cs;
+      const newValue = !card.incidir;
+      dbSetIncidir(cardId, newValue);
+      return cs.map(c => c.id === cardId ? { ...c, incidir: newValue } : c);
+    });
+  }, []);
+
   const importCards = useCallback((data) => {
     const result = dbImportCards(data);
     setCards(result.cards);
@@ -65,6 +76,7 @@ export function useCards() {
     updateCard,
     deleteCard,
     markProgress,
+    toggleIncidir,
     importCards,
     exportDatabase: exportDatabaseBinary,
     exportVocabulary: exportVocabularyJSON,

@@ -12,11 +12,14 @@ export default function StudyView({
   onBuildDeck,
   progress,
   onMarkProgress,
+  onToggleIncidir,
   filter,
   onFilterChange,
   categories,
   shuffled,
   onShuffleToggle,
+  incidirMode,
+  onToggleIncidirMode,
   known,
   learning,
   totalCards,
@@ -47,11 +50,18 @@ export default function StudyView({
         <button className={`shuffle-btn ${shuffled ? "on" : ""}`} onClick={onShuffleToggle}>
           {shuffled ? "🔀 Aleatorio ON" : "🔀 Aleatorio"}
         </button>
+        <button className={`incidir-mode-btn ${incidirMode ? "on" : ""}`} onClick={onToggleIncidirMode}>
+          {incidirMode ? "⚠️ Mis errores ON" : "⚠️ Mis errores"}
+        </button>
         <button className="reset-btn" onClick={onBuildDeck}>↺ Reiniciar</button>
       </div>
 
       {deck.length === 0 ? (
-        <div className="empty">No hay tarjetas en esta categoría.</div>
+        <div className="empty">
+          {incidirMode
+            ? "No tienes tarjetas marcadas para repasar. Activa el checkbox \"Incidir\" en las tarjetas que quieras reforzar."
+            : "No hay tarjetas en esta categoría."}
+        </div>
       ) : (
         <>
           <div className="progress-line">
@@ -70,6 +80,14 @@ export default function StudyView({
                     {progress[current.id] === "known" ? "✓" : "↻"}
                   </span>
                 )}
+                <label className="incidir-checkbox" onClick={e => e.stopPropagation()}>
+                  <input
+                    type="checkbox"
+                    checked={!!current.incidir}
+                    onChange={() => onToggleIncidir(current.id)}
+                  />
+                  Incidir
+                </label>
                 <div className="card-word">{current.word}</div>
                 <div className="pronounce-row" onClick={e => e.stopPropagation()}>
                   <button className="sound-btn" onClick={e => speakText(current.word, e)} title="Escuchar pronunciación">

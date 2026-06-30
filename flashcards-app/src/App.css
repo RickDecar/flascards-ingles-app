@@ -134,6 +134,39 @@ body {
 .shuffle-btn.on { border-color: var(--accent2); color: var(--accent2); background: rgba(122,156,232,0.1); }
 .reset-btn:hover { border-color: var(--text-muted); color: var(--text); }
 
+.incidir-mode-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: 40px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.incidir-mode-btn.on { border-color: var(--learning); color: var(--learning); background: rgba(232,154,122,0.1); }
+
+.incidir-checkbox {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  z-index: 2;
+}
+.incidir-checkbox input[type="checkbox"] {
+  accent-color: var(--learning);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+.incidir-checkbox:has(input:checked) { color: var(--learning); }
+
 /* PROGRESS LINE */
 .progress-line {
   height: 3px;
