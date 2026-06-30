@@ -148,12 +148,13 @@ body {
 
 .incidir-checkbox {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  bottom: 16px;
+  left: 16px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12px;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--text-muted);
   cursor: pointer;
   user-select: none;
@@ -161,9 +162,10 @@ body {
 }
 .incidir-checkbox input[type="checkbox"] {
   accent-color: var(--learning);
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .incidir-checkbox:has(input:checked) { color: var(--learning); }
 

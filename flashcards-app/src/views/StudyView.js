@@ -51,7 +51,7 @@ export default function StudyView({
           {shuffled ? "🔀 Aleatorio ON" : "🔀 Aleatorio"}
         </button>
         <button className={`incidir-mode-btn ${incidirMode ? "on" : ""}`} onClick={onToggleIncidirMode}>
-          {incidirMode ? "⚠️ Mis errores ON" : "⚠️ Mis errores"}
+          {incidirMode ? "⚠️ Revisar tarjetas con insistir activo ON" : "⚠️ Revisar tarjetas con insistir activo"}
         </button>
         <button className="reset-btn" onClick={onBuildDeck}>↺ Reiniciar</button>
       </div>
@@ -86,7 +86,7 @@ export default function StudyView({
                     checked={!!current.incidir}
                     onChange={() => onToggleIncidir(current.id)}
                   />
-                  Incidir
+                  Insistir en esta tarjeta
                 </label>
                 <div className="card-word">{current.word}</div>
                 <div className="pronounce-row" onClick={e => e.stopPropagation()}>
