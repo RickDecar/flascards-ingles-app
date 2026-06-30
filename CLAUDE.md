@@ -31,8 +31,8 @@ flashcards-app/src/
 ├── services/
 │   └── speech.js            # speakText, SpeechRecognitionAPI (Web Speech API)
 ├── hooks/
-│   ├── useCards.js          # estado de tarjetas + CRUD (initDB, add, update, delete, markProgress, import/export)
-│   ├── useDeck.js           # construcción del mazo + navegación (filter, shuffle, flip, navigate)
+│   ├── useCards.js          # estado de tarjetas + CRUD (initDB, add, update, delete, markProgress, toggleIncidir, import/export)
+│   ├── useDeck.js           # construcción del mazo + navegación (filter, shuffle, incidirMode, flip, navigate)
 │   └── usePronunciation.js  # reconocimiento de voz (SpeechRecognition lifecycle)
 ├── views/
 │   ├── StudyView.js         # UI de la vista de estudio (usa usePronunciation internamente)
@@ -42,7 +42,7 @@ flashcards-app/src/
 ├── App.css                  # todos los estilos
 ├── ChatView.js              # vista conversar con Ollama (estado propio)
 ├── data.js                  # 122 tarjetas iniciales (seed)
-├── db.js                    # capa SQLite/sql.js (tablas: cards, examples, progress)
+├── db.js                    # capa SQLite/sql.js (tablas: cards, examples, progress); incluye migrateDB()
 ├── index.js                 # punto de entrada React
 └── ollama.js                # cliente HTTP Ollama (sendChatMessage, getFeedback)
 ```
@@ -79,9 +79,13 @@ useDeck.js  (hook) ──↗                      ├──→ ListView.js
 
 No contiene lógica de negocio, no accede a `db.js` directamente, no gestiona formularios.
 
+Estado propio de `App.js`: `view`, `filter`, `shuffled`, `incidirMode`, `editCard`, `recentWords`.
+
 ### Data Persistence (SQLite via sql.js)
 
 `src/db.js` — tablas: `cards`, `examples`, `progress`. En primera carga siembra la BD desde `initialCards` (`data.js`). Cada mutación debouncea un export binario a IndexedDB (`flashcards_sqlite`). `useCards` abstrae toda la interacción con `db.js`.
+
+`migrateDB()` se ejecuta al cargar una BD existente y añade columnas nuevas con `ALTER TABLE … ADD COLUMN` dentro de un try/catch (idempotente). Añadir un campo nuevo a `cards` requiere: (1) declararlo en `SCHEMA_SQL`, (2) añadirlo en `migrateDB()`, (3) leerlo en `getAllCards()`, (4) exponerlo en el hook `useCards`.
 
 ### Conversation (Ollama)
 
@@ -106,9 +110,16 @@ No contiene lógica de negocio, no accede a `db.js` directamente, no gestiona fo
   word: string,
   meaning: string,
   examples: string[],  // hasta 5 (importación acepta hasta 8)
-  category: string     // debe existir en CATEGORY_COLORS o renderiza en gris
+  category: string,    // debe existir en CATEGORY_COLORS o renderiza en gris
+  incidir: boolean     // marca la tarjeta para repaso con "Insistir"; persiste en SQLite
 }
 ```
+
+### Modo "Insistir" (incidirMode)
+
+`StudyView` muestra en cada tarjeta un checkbox "Insistir en esta tarjeta" (esquina inferior izquierda de la cara frontal). Al activarlo, `useCards.toggleIncidir` llama a `db.setIncidir` y actualiza el estado React de forma atómica.
+
+El botón "Revisar tarjetas con insistir activo" en los controles de estudio activa `incidirMode` en `App.js`, que se pasa a `useDeck`. Con `incidirMode = true`, `useDeck` filtra el mazo a las tarjetas con `incidir === true`. Si el mazo resultante está vacío, `StudyView` muestra un mensaje contextual en lugar de una lista vacía.
 
 ## Styling System
 
