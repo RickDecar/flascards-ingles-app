@@ -34,6 +34,8 @@ App de flashcards para aprender inglés de forma activa. Incluye 122 tarjetas pr
 
 ## Instalación
 
+> 📘 Guía completa paso a paso (Git, Node.js, Ollama, solución de problemas): **[INSTALACION.md](INSTALACION.md)**
+
 ```bash
 cd flashcards-app
 npm install
