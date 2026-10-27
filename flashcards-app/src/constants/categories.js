@@ -7,6 +7,13 @@ export const CATEGORY_COLORS = {
   "Alta frecuencia":"#F9E79F",
   "Phrasal Verbs":  "#F1948A",
   "Grimm":          "#A9CCE3",
+  "Breaking Bad":   "#7DCEA0",
+  "Náutico":        "#5DADE2",
+  "Sugar":          "#F5B7B1",
+  "Prompting / IA": "#BB8FCE",
+  "The Undeclared War": "#AEB6BF",
+  "The Instigators":    "#F8C471",
+  "Historia":       "#D7BDE2",
 };
 
 export const DEFAULT_CATEGORIES = [
