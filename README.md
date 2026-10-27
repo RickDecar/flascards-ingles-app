@@ -1,6 +1,6 @@
 # FlashCine — Aprende inglés con el vocabulario de tus películas y series
 
-App de flashcards para aprender inglés de forma activa. Incluye 122 tarjetas preinstaladas con vocabulario real de películas, series y conversaciones cotidianas.
+App de flashcards para aprender inglés de forma activa. Incluye 503 tarjetas preinstaladas con vocabulario real de películas, series y conversaciones cotidianas.
 
 ## Demo rápida
 
@@ -20,17 +20,19 @@ App de flashcards para aprender inglés de forma activa. Incluye 122 tarjetas pr
 - **Persistencia automática** — SQLite (sql.js) embebida en el navegador, persistida en IndexedDB
 - **Conversar con IA** — chat en inglés con Ollama; feedback gramatical en paralelo
 
-## Vocabulario incluido (122 tarjetas)
+## Vocabulario incluido (503 tarjetas)
 
 | Categoría | Descripción |
 |-----------|-------------|
-| Phrasal Verbs | 101 phrasal verbs esenciales |
-| Alta frecuencia | 12 palabras imprescindibles del inglés cotidiano |
-| Verbos | 3 verbos |
-| Expresiones | 2 frases hechas y coloquialismos |
-| Sustantivos | 2 sustantivos |
-| Adjetivos | 1 adjetivo |
-| Grimm | 1 término de la serie *Grimm* |
+| Phrasal Verbs | 216 phrasal verbs
+| Expresiones | 94 frases hechas y coloquialismos
+| Verbos | 69 verbos
+| Sustantivos | 33 sustantivos
+| Adjetivos | 31 adjetivos
+| Breaking Bad | 18 términos de la serie
+| Alta frecuencia | 14 palabras imprescindibles del inglés cotidiano
+| Náutico | 12 términos náuticos
+| Sugar, Prompting / IA, The Undeclared War, Grimm, The Instigators, Historia | 16 términos temáticos
 
 ## Instalación
 

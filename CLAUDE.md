@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project Overview
 
-**FlashCine** is a React 18 SPA for learning English vocabulary through interactive flashcards. Ships with 122 pre-installed cards (movies/series vocabulary, phrasal verbs, high-frequency words). All data persists client-side in a SQLite database (sql.js) stored in IndexedDB.
+**FlashCine** is a React 18 SPA for learning English vocabulary through interactive flashcards. Ships with 503 pre-installed cards (movies/series vocabulary, phrasal verbs, high-frequency words). All data persists client-side in a SQLite database (sql.js) stored in IndexedDB.
 
 **Tech Stack**: React 18, CSS3 (CSS variables + dark theme), JavaScript ES6+, Create React App (react-scripts 5).
 
@@ -41,7 +41,7 @@ flashcards-app/src/
 ├── App.js                   # orquestador: routing de vistas + composición de hooks
 ├── App.css                  # todos los estilos
 ├── ChatView.js              # vista conversar con Ollama (estado propio)
-├── data.js                  # 122 tarjetas iniciales (seed)
+├── data.js                  # 503 tarjetas iniciales (seed)
 ├── db.js                    # capa SQLite/sql.js (tablas: cards, examples, progress); incluye migrateDB()
 ├── index.js                 # punto de entrada React
 └── ollama.js                # cliente HTTP Ollama (sendChatMessage, getFeedback)

@@ -286,7 +286,7 @@ Lista de verificación:
 - [ ] `git --version`, `node -v` y `ollama --version` muestran una versión.
 - [ ] `curl http://localhost:11434` devuelve `Ollama is running`.
 - [ ] `ollama list` muestra `llama3.2` (o el modelo que elegiste).
-- [ ] http://localhost:3000 muestra la vista **Estudiar** con las 122 tarjetas iniciales.
+- [ ] http://localhost:3000 muestra la vista **Estudiar** con las 503 tarjetas iniciales.
 - [ ] En **💬 Conversar**, al escribir *"Hi! How are you?"* recibes una respuesta y un feedback de tu mensaje.
 - [ ] El botón 🔊 lee la palabra en voz alta y 🎤 pide permiso para el micrófono (Chrome/Edge).
 
@@ -318,7 +318,7 @@ cd flashcards-app && npm install   # por si hay dependencias nuevas
 
 Tus tarjetas y progreso viven en **IndexedDB del navegador** (base de datos `flashcards_sqlite`), ligados a `http://localhost:3000`. Esto implica:
 
-- Si usas **otro navegador u otro puerto**, verás las 122 tarjetas iniciales, no las tuyas.
+- Si usas **otro navegador u otro puerto**, verás las 503 tarjetas iniciales, no las tuyas.
 - Si **borras los datos del sitio** en el navegador, pierdes tus tarjetas.
 - 👉 Haz copias de seguridad desde **Vocabulario → 📤 Exportar JSON**, y restáuralas con **📥 Importar JSON**.
 

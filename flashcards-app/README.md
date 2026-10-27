@@ -53,7 +53,7 @@ En la vista **Vocabulario**, pulsa **📥 Importar JSON** y selecciona un archiv
 
 ## Vocabulario incluido
 
-122 tarjetas preinstaladas: 101 phrasal verbs esenciales, 12 palabras de alta frecuencia, expresiones, verbos, sustantivos, adjetivos y vocabulario de *Grimm*.
+503 tarjetas preinstaladas: 216 phrasal verbs, 94 expresiones, 69 verbos, 33 sustantivos, 31 adjetivos, 14 palabras de alta frecuencia y vocabulario de series y películas (*Breaking Bad*, *Grimm*, *The Undeclared War*, *The Instigators*, *Sugar*), náutico, historia y prompting / IA.
 
 ## Conversar con IA (Ollama)
 
