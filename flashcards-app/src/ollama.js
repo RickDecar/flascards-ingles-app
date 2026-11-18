@@ -5,6 +5,26 @@ export const MODEL_STORAGE_KEY = "english_flashcards_ollama_model";
 export const CONNECTION_ERROR_MESSAGE =
   "No se pudo conectar con Ollama en localhost:11434. Asegúrate de tener Ollama instalado y corriendo (`ollama serve`), y de haber descargado el modelo (`ollama pull llama3.2`).";
 
+/**
+ * Mensaje para cuando Ollama responde pero no tiene el modelo pedido (HTTP 404).
+ * @param {string} model nombre del modelo solicitado
+ * @returns {string}
+ */
+export function buildModelNotFoundMessage(model) {
+  return `El modelo "${model}" no está descargado en Ollama. Ejecuta \`ollama pull ${model}\` o revisa el nombre en el campo "Modelo Ollama".`;
+}
+
+/**
+ * Traduce una respuesta HTTP no exitosa de Ollama a un mensaje para el usuario.
+ * @param {number} status código HTTP de la respuesta
+ * @param {string} model nombre del modelo solicitado
+ * @returns {string}
+ */
+export function buildHttpErrorMessage(status, model) {
+  if (status === 404) return buildModelNotFoundMessage(model);
+  return CONNECTION_ERROR_MESSAGE;
+}
+
 export const FEEDBACK_SYSTEM_PROMPT =
   "You are an English teacher silently reviewing a student's chat message. " +
   "Analyze ONLY the student's last message for grammar errors, incorrect word usage, or unnatural phrasing. " +
@@ -36,7 +56,7 @@ async function callOllama(model, messages) {
     throw new Error(CONNECTION_ERROR_MESSAGE);
   }
   if (!res.ok) {
-    throw new Error(CONNECTION_ERROR_MESSAGE);
+    throw new Error(buildHttpErrorMessage(res.status, model));
   }
   const data = await res.json();
   return (data.message && data.message.content || "").trim();

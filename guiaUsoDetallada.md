@@ -346,6 +346,7 @@ La conversación envía al modelo **todo el historial** del chat. El feedback se
 
 - Ollama en marcha en `http://localhost:11434` y el modelo descargado.
 - Si no hay conexión, aparece el aviso: *"No se pudo conectar con Ollama en localhost:11434. Asegúrate de tener Ollama instalado y corriendo (`ollama serve`), y de haber descargado el modelo (`ollama pull llama3.2`)."*
+- Si Ollama responde pero el modelo del campo **Modelo Ollama** no está descargado, aparece un aviso distinto: *"El modelo "nombre" no está descargado en Ollama. Ejecuta `ollama pull nombre` o revisa el nombre en el campo "Modelo Ollama"."* Otros errores HTTP de Ollama siguen mostrando el aviso de conexión.
 
 ### 7.3 Controles
 
@@ -490,7 +491,8 @@ La arquitectura, el flujo de datos y los pasos para añadir una vista o un campo
 | [🎤 Practicar] marca "no coincide" con buena pronunciación | La tarjeta contiene signos, barras o varias formas; el reconocedor devuelve otra transcripción | Repetir más despacio o simplificar el texto de la palabra con ✏️ |
 | El micrófono no responde | Permiso denegado o navegador sin soporte | Permitir el micrófono en el candado de la barra y usar Chrome o Edge |
 | No se oye la voz | Volumen, sin voces en inglés instaladas o "Voz OFF" en el chat | Revisar el sistema, instalar voces en inglés y comprobar el botón de voz |
-| El chat muestra el error de conexión | Ollama apagado o modelo no descargado | `ollama serve` y `ollama pull <modelo>`; revisar el campo "Modelo Ollama" |
+| El chat muestra el error de conexión | Ollama apagado | `ollama serve`; comprobar con `curl http://localhost:11434` |
+| El chat dice que el modelo no está descargado | El nombre del campo "Modelo Ollama" no coincide con ningún modelo instalado | `ollama list`, luego `ollama pull <modelo>` o corregir el nombre del campo |
 | El chat tarda mucho | Modelo grande para tu equipo | Probar `llama3.2:1b` |
 | El modo Insistir muestra el mensaje de vacío | Ninguna tarjeta marcada (o ninguna en la categoría filtrada) | Marcar tarjetas o cambiar el filtro |
 | Tras importar faltan palabras | Elementos sin `word` válido ignorados, o JSON que no es un array | Revisar el formato (§5.4) |

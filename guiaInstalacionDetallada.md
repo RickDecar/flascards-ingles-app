@@ -320,7 +320,7 @@ Los criterios de éxito de este documento se basan en la configuración declarad
 | Errores raros tras `npm install` | Instalación corrupta o Node no LTS | Revisar `node -v` | Borrar `node_modules` (no `package-lock.json`) y repetir `npm install` con Node LTS |
 | `Something is already running on port 3000` | Otra instancia usa el puerto | — | Cerrar el otro proceso. Si aceptas otro puerto, la app arrancará con una base de datos vacía (otro origen) |
 | Conversar: "No se pudo conectar con Ollama…" | Ollama apagado | `curl http://localhost:11434` falla | `ollama serve` |
-| Conversar falla aunque Ollama responde | Modelo no descargado o nombre incorrecto | `ollama list` | `ollama pull llama3.2` y revisar el campo "Modelo Ollama" |
+| Conversar: "El modelo … no está descargado en Ollama" | Modelo no descargado o nombre incorrecto | `ollama list` | `ollama pull llama3.2` y revisar el campo "Modelo Ollama" |
 | Error CORS en la consola (F12) | La app se abre desde una IP de red y no desde `localhost` | Observar el origen en la barra de direcciones | Usar `http://localhost:3000`, o definir `OLLAMA_ORIGINS=*` y reiniciar Ollama |
 | Respuestas muy lentas | Modelo grande para el hardware | Monitor de recursos | `llama3.2:1b` y cerrar aplicaciones pesadas |
 | 🎤 no responde | Navegador sin soporte o permiso denegado | Candado de la barra de direcciones | Usar Chrome/Edge y permitir el micrófono |

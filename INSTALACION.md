@@ -329,7 +329,7 @@ Tus tarjetas y progreso viven en **IndexedDB del navegador** (base de datos `fla
 | Síntoma | Causa probable | Solución |
 |---------|----------------|----------|
 | *"No se pudo conectar con Ollama en localhost:11434…"* en **Conversar** | Ollama no está en marcha | Ejecuta `ollama serve` (o abre la app de Ollama) y comprueba con `curl http://localhost:11434` |
-| El chat da error aunque Ollama responde | El modelo no está descargado o el nombre está mal escrito | `ollama list` para ver los modelos; `ollama pull llama3.2`; revisa el campo **"Modelo Ollama"** |
+| El chat muestra *"El modelo … no está descargado en Ollama"* | El modelo no está descargado o el nombre está mal escrito | `ollama list` para ver los modelos; `ollama pull llama3.2`; revisa el campo **"Modelo Ollama"** |
 | Error de **CORS** en la consola del navegador (F12) | Abres la app desde un origen distinto de `localhost` (p. ej. la IP de tu red) | Usa `http://localhost:3000`, o define la variable de entorno `OLLAMA_ORIGINS=*` y reinicia Ollama |
 | Respuestas muy lentas | Modelo demasiado grande para tu equipo | Prueba `llama3.2:1b` y cierra otras aplicaciones pesadas |
 | `'npm' no se reconoce como un comando…` | Node.js no está en el PATH | Cierra y abre la terminal; si persiste, reinstala Node.js |
