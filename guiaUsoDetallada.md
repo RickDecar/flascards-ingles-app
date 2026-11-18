@@ -163,7 +163,7 @@ Categorías incluidas de serie y su color: Expresiones, Verbos, Sustantivos, Adj
 
 [🔀 Aleatorio] alterna el orden aleatorio del mazo (el botón pasa a "Aleatorio ON"). Al desactivarlo se recupera el orden original (por id). Al activarlo o desactivarlo la posición vuelve a 1.
 
-🔎 Con el modo aleatorio activo, el mazo se vuelve a barajar cada vez que cambia la lista de tarjetas, por ejemplo al marcar o desmarcar **Insistir**. La posición se conserva, pero el orden de las tarjetas restantes puede cambiar. Si necesitas un orden estable, marca Insistir con el modo aleatorio apagado.
+El mazo se baraja solo cuando cambia el filtro, el modo aleatorio o el modo Insistir, o al pulsar [↺ Reiniciar]. Los cambios en los datos de las tarjetas, como marcar o desmarcar **Insistir**, **conservan** el orden y la posición actuales.
 
 ### 4.7 Modo Insistir
 
@@ -319,7 +319,9 @@ Desde la lista, [✏️] abre el formulario con título "Editar tarjeta" y botó
 
 El selector incluye "+ Nueva categoría…", que muestra un campo de texto para el nombre.
 
-🔎 Según el código, al escribir la primera letra el valor de categoría deja de ser el marcador interno de "nueva categoría" y el campo de texto desaparece, de modo que solo se conserva el primer carácter escrito. **No lo he comprobado en ejecución.** Alternativa fiable: importar un JSON cuyas tarjetas incluyan el nombre de categoría deseado en `category`. Esa categoría aparece después en todos los selectores. Si lo haces, añade el color en `src/constants/categories.js` (ver §10.2).
+Escribe el nombre completo de la categoría. Al guardar se usa el texto recortado de espacios en los extremos. Si dejas el nombre vacío, la tarjeta no se guarda. La categoría aparece después en todos los selectores. Si quieres darle un color propio, añádela en `src/constants/categories.js` (ver §10.2). También puedes crear categorías importando un JSON cuyas tarjetas incluyan el nombre en `category`.
+
+> Nota: una versión anterior de la app perdía el campo de texto al escribir la primera letra y solo guardaba ese carácter. Está corregido; la corrección está cubierta por tests unitarios de la lógica, pero el comportamiento de la interfaz no se ha probado a mano.
 
 ### 6.5 Limitaciones del formulario
 
@@ -515,8 +517,6 @@ La arquitectura, el flujo de datos y los pasos para añadir una vista o un campo
 | Borrado sin confirmación | Riesgo de pérdida accidental | Implementación |
 | Comparación exacta en la práctica de pronunciación | Falsos "no coincide" | Implementación |
 | Chat sin persistencia | Se pierde al cambiar de vista | Implementación |
-| Creación de categorías nuevas desde el formulario posiblemente defectuosa 🔎 | Categoría de un solo carácter | Implementación |
-| Reordenado del mazo aleatorio al marcar Insistir 🔎 | Orden cambiante | Implementación |
 | Calidad variable del feedback | Depende del modelo | Modelo local |
 
 ### 12.3 Trabajo futuro (propuestas)
@@ -525,7 +525,7 @@ Importación de la base `.sqlite`, confirmación de borrado, comparación tolera
 
 ### 12.4 Validez de este documento
 
-Describe el comportamiento según el código del repositorio en el momento de redactarlo. No se han medido tiempos ni se ha evaluado la eficacia pedagógica de la app. Los puntos marcados con 🔎 deben comprobarse en ejecución antes de darlos por confirmados.
+Describe el comportamiento según el código del repositorio en el momento de redactarlo. No se han medido tiempos ni se ha evaluado la eficacia pedagógica de la app. Los puntos marcados con 🔎 deben comprobarse en ejecución antes de darlos por confirmados. Las correcciones de la categoría nueva y del orden del mazo aleatorio cuentan con tests unitarios de su lógica (`npm test`), pero no se han probado a mano en el navegador.
 
 ---
 

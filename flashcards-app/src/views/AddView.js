@@ -1,6 +1,7 @@
 // SRP: UI exclusiva del formulario de creación/edición de tarjetas
 import { useState } from "react";
 import { DEFAULT_CATEGORIES } from "../constants/categories";
+import { resolverCategoria, VALOR_NUEVA_CATEGORIA } from "../utils/categorias";
 
 const EMPTY_FORM = {
   word: "",
@@ -22,16 +23,32 @@ function toFormState(card) {
 
 export default function AddView({ editCard, existingCategories, onSave, onCancel }) {
   const [formData, setFormData] = useState(() => toFormState(editCard));
+  const [creandoCategoria, setCreandoCategoria] = useState(false);
+  const [nombreNuevaCategoria, setNombreNuevaCategoria] = useState("");
 
   const allCategories = Array.from(new Set([...existingCategories, ...DEFAULT_CATEGORIES]));
 
   const handleSave = () => {
     if (!formData.word.trim() || !formData.meaning.trim()) return;
+    const category = resolverCategoria(
+      creandoCategoria ? VALOR_NUEVA_CATEGORIA : formData.category,
+      nombreNuevaCategoria
+    );
+    if (!category) return;
     const cleanExamples = formData.examples.filter(e => e.trim());
-    onSave({ ...formData, examples: cleanExamples });
+    onSave({ ...formData, category, examples: cleanExamples });
   };
 
   const setField = (field, value) => setFormData(d => ({ ...d, [field]: value }));
+
+  const handleCategoryChange = (value) => {
+    if (value === VALOR_NUEVA_CATEGORIA) {
+      setCreandoCategoria(true);
+      return;
+    }
+    setCreandoCategoria(false);
+    setField("category", value);
+  };
 
   const setExample = (i, value) => {
     const updated = [...formData.examples];
@@ -68,14 +85,18 @@ export default function AddView({ editCard, existingCategories, onSave, onCancel
         ))}
 
         <label>Categoría</label>
-        <select value={formData.category} onChange={e => setField("category", e.target.value)}>
+        <select
+          value={creandoCategoria ? VALOR_NUEVA_CATEGORIA : formData.category}
+          onChange={e => handleCategoryChange(e.target.value)}
+        >
           {allCategories.map(c => <option key={c} value={c}>{c}</option>)}
-          <option value="__new__">+ Nueva categoría...</option>
+          <option value={VALOR_NUEVA_CATEGORIA}>+ Nueva categoría...</option>
         </select>
-        {formData.category === "__new__" && (
+        {creandoCategoria && (
           <input
             placeholder="Nombre de la nueva categoría"
-            onChange={e => setField("category", e.target.value)}
+            value={nombreNuevaCategoria}
+            onChange={e => setNombreNuevaCategoria(e.target.value)}
           />
         )}
 

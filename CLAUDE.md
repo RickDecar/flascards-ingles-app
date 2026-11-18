@@ -18,7 +18,11 @@ npm start         # dev server at http://localhost:3000
 npm run build     # production build
 ```
 
-No test suite is configured.
+```bash
+npm test          # tests unitarios (Jest vía react-scripts), p. ej. src/utils/*.test.js
+```
+
+Los tests cubren la lógica pura de `src/utils/` (`mazo.js`, `categorias.js`). No hay tests de componentes.
 
 ## Architecture — SOLID
 
@@ -28,6 +32,9 @@ The codebase follows SOLID principles. Each module has a single, well-defined re
 flashcards-app/src/
 ├── constants/
 │   └── categories.js        # CATEGORY_COLORS, DEFAULT_CATEGORIES, getCategoryColor
+├── utils/
+│   ├── mazo.js              # barajar (Fisher-Yates), conservarOrden (no re-baraja al cambiar datos)
+│   └── categorias.js        # resolverCategoria (formulario "Nueva categoría")
 ├── services/
 │   └── speech.js            # speakText, SpeechRecognitionAPI (Web Speech API)
 ├── hooks/

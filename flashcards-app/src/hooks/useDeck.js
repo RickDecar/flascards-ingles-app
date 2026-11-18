@@ -1,5 +1,6 @@
 // SRP: construcción del mazo + navegación entre tarjetas
 import { useState, useEffect, useCallback, useRef } from "react";
+import { barajar, conservarOrden } from "../utils/mazo";
 
 export function useDeck(cards, filter, shuffled, incidirMode = false) {
   const [deck, setDeck] = useState([]);
@@ -9,11 +10,12 @@ export function useDeck(cards, filter, shuffled, incidirMode = false) {
   // Rastrea los últimos parámetros estructurales para distinguir cambios de filtro/modo
   // (que sí deben resetear la posición) de cambios de datos de tarjetas (que no deben).
   const prevStructureRef = useRef({ filter, shuffled, incidirMode });
+  // Orden (ids) del mazo anterior, para no re-barajar cuando solo cambian los datos de las tarjetas
+  const idsMazoRef = useRef([]);
 
   const buildDeck = useCallback((forceReset = false) => {
     let filtered = filter === "all" ? cards : cards.filter(c => c.category === filter);
     if (incidirMode) filtered = filtered.filter(c => c.incidir);
-    if (shuffled) filtered = [...filtered].sort(() => Math.random() - 0.5);
 
     const prev = prevStructureRef.current;
     const estructuraCambio =
@@ -23,6 +25,12 @@ export function useDeck(cards, filter, shuffled, incidirMode = false) {
       prev.incidirMode !== incidirMode;
 
     prevStructureRef.current = { filter, shuffled, incidirMode };
+
+    // Solo se re-baraja si cambió la estructura; un cambio de datos (ej: Insistir) conserva el orden
+    if (shuffled) {
+      filtered = estructuraCambio ? barajar(filtered) : conservarOrden(filtered, idsMazoRef.current);
+    }
+    idsMazoRef.current = filtered.map(c => c.id);
 
     setDeck(filtered);
     setFlipped(false);
