@@ -16,13 +16,19 @@ export function buildModelNotFoundMessage(model) {
 
 /**
  * Traduce una respuesta HTTP no exitosa de Ollama a un mensaje para el usuario.
+ * Solo los fallos de red (sin respuesta) deben usar CONNECTION_ERROR_MESSAGE.
  * @param {number} status código HTTP de la respuesta
  * @param {string} model nombre del modelo solicitado
+ * @param {string} [detalle] texto de error devuelto por Ollama, si lo hay
  * @returns {string}
  */
-export function buildHttpErrorMessage(status, model) {
+export function buildHttpErrorMessage(status, model, detalle = "") {
   if (status === 404) return buildModelNotFoundMessage(model);
-  return CONNECTION_ERROR_MESSAGE;
+  const sufijo = detalle ? `: ${detalle}` : "";
+  if (status >= 500) {
+    return `Ollama devolvió un error interno (HTTP ${status})${sufijo}. Revisa la terminal donde corre Ollama o prueba con otro modelo.`;
+  }
+  return `Ollama rechazó la petición (HTTP ${status})${sufijo}.`;
 }
 
 export const FEEDBACK_SYSTEM_PROMPT =
@@ -56,7 +62,14 @@ async function callOllama(model, messages) {
     throw new Error(CONNECTION_ERROR_MESSAGE);
   }
   if (!res.ok) {
-    throw new Error(buildHttpErrorMessage(res.status, model));
+    let detalle = "";
+    try {
+      const cuerpo = await res.json();
+      detalle = typeof cuerpo.error === "string" ? cuerpo.error : "";
+    } catch (err) {
+      console.warn("No se pudo leer el cuerpo del error de Ollama", err);
+    }
+    throw new Error(buildHttpErrorMessage(res.status, model, detalle));
   }
   const data = await res.json();
   return (data.message && data.message.content || "").trim();

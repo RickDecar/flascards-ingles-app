@@ -346,7 +346,7 @@ La conversación envía al modelo **todo el historial** del chat. El feedback se
 
 - Ollama en marcha en `http://localhost:11434` y el modelo descargado.
 - Si no hay conexión, aparece el aviso: *"No se pudo conectar con Ollama en localhost:11434. Asegúrate de tener Ollama instalado y corriendo (`ollama serve`), y de haber descargado el modelo (`ollama pull llama3.2`)."*
-- Si Ollama responde pero el modelo del campo **Modelo Ollama** no está descargado, aparece un aviso distinto: *"El modelo "nombre" no está descargado en Ollama. Ejecuta `ollama pull nombre` o revisa el nombre en el campo "Modelo Ollama"."* Otros errores HTTP de Ollama siguen mostrando el aviso de conexión.
+- Si Ollama responde pero el modelo del campo **Modelo Ollama** no está descargado, aparece un aviso distinto: *"El modelo "nombre" no está descargado en Ollama. Ejecuta `ollama pull nombre` o revisa el nombre en el campo "Modelo Ollama"."* - Si Ollama responde con un error interno (HTTP 5xx), por ejemplo por falta de memoria para cargar el modelo, el aviso es: *"Ollama devolvió un error interno (HTTP 500): <detalle de Ollama>. Revisa la terminal donde corre Ollama o prueba con otro modelo."* Otros rechazos (HTTP 4xx) muestran *"Ollama rechazó la petición (HTTP 400): <detalle>."* El aviso de conexión queda reservado para cuando Ollama no responde.
 
 ### 7.3 Controles
 
@@ -492,6 +492,7 @@ La arquitectura, el flujo de datos y los pasos para añadir una vista o un campo
 | El micrófono no responde | Permiso denegado o navegador sin soporte | Permitir el micrófono en el candado de la barra y usar Chrome o Edge |
 | No se oye la voz | Volumen, sin voces en inglés instaladas o "Voz OFF" en el chat | Revisar el sistema, instalar voces en inglés y comprobar el botón de voz |
 | El chat muestra el error de conexión | Ollama apagado | `ollama serve`; comprobar con `curl http://localhost:11434` |
+| El chat dice "Ollama devolvió un error interno (HTTP 500)" | Ollama falló al procesar la petición (p. ej. memoria insuficiente para el modelo) | Leer el detalle del aviso y la terminal de Ollama; probar `llama3.2:1b` |
 | El chat dice que el modelo no está descargado | El nombre del campo "Modelo Ollama" no coincide con ningún modelo instalado | `ollama list`, luego `ollama pull <modelo>` o corregir el nombre del campo |
 | El chat tarda mucho | Modelo grande para tu equipo | Probar `llama3.2:1b` |
 | El modo Insistir muestra el mensaje de vacío | Ninguna tarjeta marcada (o ninguna en la categoría filtrada) | Marcar tarjetas o cambiar el filtro |
