@@ -1,0 +1,520 @@
+[
+  {
+    "word": "Attaboy",
+    "meaning": "¡Así se hace! / ¡Bien hecho!",
+    "category": "Expresiones",
+    "examples": [
+      "Attaboy! That was perfect!",
+      "Attaboy, you nailed it!",
+      "The coach shouted attaboy after the goal.",
+      "Attaboy, keep it up!",
+      "He gave me an attaboy for finishing early."
+    ]
+  },
+  {
+    "word": "Shed (light)",
+    "meaning": "Arrojar luz / Aclarar",
+    "category": "Verbos",
+    "examples": [
+      "Could you shed some light on this?",
+      "The report shed light on the issue.",
+      "She shed light on what really happened.",
+      "His testimony shed light on the crime.",
+      "Can you shed any light on why she left?"
+    ]
+  },
+  {
+    "word": "Bury",
+    "meaning": "Enterrar / Sepultar",
+    "category": "Verbos",
+    "examples": [
+      "The history will bury us.",
+      "They buried him in the backyard.",
+      "She buried the truth for years.",
+      "Don't bury your feelings.",
+      "He was buried in work all week.",
+      "Where did you bury your money?"
+    ]
+  },
+  {
+    "word": "Piss off",
+    "meaning": "¡Vete a la mierda! / Estar harto",
+    "category": "Expresiones",
+    "examples": [
+      "Piss off, I'm busy!",
+      "That really pissed me off.",
+      "She was pissed off about the delay.",
+      "He told his boss to piss off.",
+      "Stop doing that, it pisses me off."
+    ]
+  },
+  {
+    "word": "Treachery",
+    "meaning": "Traición / Perfidia",
+    "category": "Sustantivos",
+    "examples": [
+      "His treachery shocked everyone.",
+      "An act of treachery destroyed the alliance.",
+      "She couldn't forgive such treachery.",
+      "The king punished all acts of treachery.",
+      "Treachery runs deep in this family."
+    ]
+  },
+  {
+    "word": "Depict",
+    "meaning": "Representar / Retratar / Mostrar",
+    "category": "Verbos",
+    "examples": [
+      "This depicts the god Anubis.",
+      "The film depicts life in the 80s.",
+      "This painting depicts a brutal battle.",
+      "The series depicts medieval politics perfectly.",
+      "How does the book depict its villain?"
+    ]
+  },
+  {
+    "word": "Footage",
+    "meaning": "Imágenes / Grabación / Material de video",
+    "category": "Sustantivos",
+    "examples": [
+      "Security footage showed the suspect.",
+      "They found footage from the crime scene.",
+      "The raw footage was never aired.",
+      "Check the security footage from last night.",
+      "We reviewed hours of footage."
+    ]
+  },
+  {
+    "word": "Woge",
+    "meaning": "Revelar forma Wesen (Grimm)",
+    "category": "Grimm",
+    "examples": [
+      "He just woged!",
+      "She woged right in front of me.",
+      "Nick saw him woge in the alley.",
+      "Don't woge here, someone will see you.",
+      "Monroe woged to scare them off."
+    ]
+  },
+  {
+    "word": "Compromised",
+    "meaning": "Comprometido / Vulnerado / Hackeado",
+    "category": "Adjetivos",
+    "examples": [
+      "The camera has been compromised.",
+      "His cover was compromised.",
+      "The entire network is compromised.",
+      "Her phone was compromised last night.",
+      "Don't use it, it's compromised."
+    ]
+  },
+  {
+    "word": "Actually",
+    "meaning": "En realidad / De hecho",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Actually, I disagree.",
+      "It's actually quite simple.",
+      "I actually liked the ending.",
+      "Actually, that's not what happened.",
+      "He's actually a pretty good guy."
+    ]
+  },
+  {
+    "word": "Anyway",
+    "meaning": "De todas formas / En fin",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Anyway, let's move on.",
+      "It doesn't matter anyway.",
+      "Anyway, where were we?",
+      "I didn't want to go anyway.",
+      "Anyway, the point is she lied."
+    ]
+  },
+  {
+    "word": "Though",
+    "meaning": "Aunque / Sin embargo",
+    "category": "Alta frecuencia",
+    "examples": [
+      "I like it, though.",
+      "Even though it's hard, keep going.",
+      "He's annoying, though I like him.",
+      "It's cold, though not freezing.",
+      "Didn't win, though we tried hard."
+    ]
+  },
+  {
+    "word": "Rather",
+    "meaning": "Bastante / Preferiría",
+    "category": "Alta frecuencia",
+    "examples": [
+      "I'd rather stay home.",
+      "It's rather cold today.",
+      "I'd rather not talk about it.",
+      "That was rather impressive.",
+      "She'd rather quit than apologize."
+    ]
+  },
+  {
+    "word": "Somehow",
+    "meaning": "De alguna manera",
+    "category": "Alta frecuencia",
+    "examples": [
+      "We'll figure it out somehow.",
+      "Somehow it worked.",
+      "She somehow managed to escape.",
+      "Somehow I knew this would happen.",
+      "He somehow convinced them all."
+    ]
+  },
+  {
+    "word": "Whatever",
+    "meaning": "Lo que sea / Me da igual",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Whatever you say.",
+      "Do whatever you want.",
+      "Whatever, I don't care anymore.",
+      "Just pick whatever looks good.",
+      "Whatever happens, I'll be here."
+    ]
+  },
+  {
+    "word": "Basically",
+    "meaning": "Básicamente",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Basically, we failed.",
+      "It's basically done.",
+      "Basically, she told him to leave.",
+      "That's basically the whole plan.",
+      "He basically runs the place."
+    ]
+  },
+  {
+    "word": "Pretty",
+    "meaning": "Bastante / Muy",
+    "category": "Alta frecuencia",
+    "examples": [
+      "It's pretty good.",
+      "I'm pretty sure about it.",
+      "That was pretty impressive.",
+      "She's pretty upset right now.",
+      "It's pretty obvious what happened."
+    ]
+  },
+  {
+    "word": "Stuff",
+    "meaning": "Cosas / Material",
+    "category": "Alta frecuencia",
+    "examples": [
+      "I need to sort my stuff out.",
+      "What's that stuff?",
+      "Leave your stuff here.",
+      "We've got stuff to talk about.",
+      "She knows her stuff."
+    ]
+  },
+  {
+    "word": "Barely",
+    "meaning": "Apenas",
+    "category": "Alta frecuencia",
+    "examples": [
+      "I barely made it.",
+      "She barely spoke all evening.",
+      "We barely had time to react.",
+      "He barely survived the crash.",
+      "I barely know her."
+    ]
+  },
+  {
+    "word": "Worth",
+    "meaning": "Vale la pena / Valor",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Is it worth it?",
+      "It's worth trying.",
+      "The view was worth the climb.",
+      "Is this house worth that price?",
+      "Nothing here is worth fighting for."
+    ]
+  },
+  {
+    "word": "Mind",
+    "meaning": "Importar / Mente",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Never mind.",
+      "Do you mind?",
+      "I don't mind at all.",
+      "Keep that in mind.",
+      "She has a brilliant mind."
+    ]
+  },
+  {
+    "word": "Give up",
+    "meaning": "Rendirse / Rendirse / Abandonar un hábito o vicio",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Never give up on your dreams.",
+      "He gave up smoking after his cardiologist warned him of arterial blockages.",
+      "Never give up on your noble aspirations, no matter how steep the incline.",
+      "I give up! What is the answer to this impossible mathematical riddle?",
+      "She gave up her lucrative corporate career to work for humanitarian causes.",
+      "Don't give up when you are only a few steps away from your destination.",
+      "Don't give up now.",
+      "She gave up smoking last year."
+    ]
+  },
+  {
+    "word": "Give in",
+    "meaning": "Ceder / Ceder ante la presión o insistencia / Darse por vencido",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "I won't give in that easily.",
+      "After hours of persistent whining, the weary father gave in and bought the toy.",
+      "Never give in to tyrannical bullies; stand your ground with dignity.",
+      "The municipal government finally gave in to public environmental demands.",
+      "He fought the disease with remarkable fortitude, refusing to give in.",
+      "The military garrison surrendered only when ammunition ran out completely.",
+      "He finally gave in.",
+      "Don't give in to pressure."
+    ]
+  },
+  {
+    "word": "Give away",
+    "meaning": "Regalar / Revelar / Regalar / Donar / Revelar un secreto o final de una historia / Regalar / Revelar / Donar / Revelar un secreto o final de una historia",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "His face gave away the truth.",
+      "They decided to give away all their duplicate household goods to charity.",
+      "Don't give away the ending of the mystery movie; I haven't watched it yet!",
+      "His trembling hands gave away his intense nervous anxiety.",
+      "The store is giving away free promotional samples to the first fifty buyers.",
+      "Her subtle smile gave away the fact that she already knew the surprise.",
+      "He gave away the secret.",
+      "They gave away free tickets."
+    ]
+  },
+  {
+    "word": "Give back",
+    "meaning": "Devolver",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Give it back to me.",
+      "Give back what you owe.",
+      "She gave back the money.",
+      "It's time to give back to the community.",
+      "He never gave back my jacket."
+    ]
+  },
+  {
+    "word": "Pick up",
+    "meaning": "Recoger / Aprender / Recoger del suelo o en coche / Aprender sin esfuerzo / Contestar el teléfono / Mejorar",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "I'll pick up where I left off.",
+      "Can you pick up the children from their primary school this afternoon?",
+      "She lived in Rome for six months and picked up conversational Italian easily.",
+      "I called his personal mobile four times, but he refused to pick up.",
+      "Economic activity in the industrial sector is finally beginning to pick up.",
+      "Please pick up your toys from the living room rug before going to bed.",
+      "Pick me up at 8.",
+      "She picked up Spanish quickly."
+    ]
+  },
+  {
+    "word": "Pick out",
+    "meaning": "Elegir / Distinguir / Elegir entre varias opciones / Reconocer o distinguir entre una multitud",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Pick out your outfit for tonight.",
+      "Take your time and pick out the necktie that best matches your wedding suit.",
+      "The witness was able to pick out the burglar from the police lineup immediately.",
+      "She picked out three antique ceramic plates at the flea market.",
+      "It was impossible to pick out his voice amidst the roaring stadium crowd.",
+      "The committee picked out the most promising candidates for round two.",
+      "Pick out what you like.",
+      "Can you pick me out in the photo?"
+    ]
+  },
+  {
+    "word": "Pick on",
+    "meaning": "Meterse con alguien",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Stop picking on me.",
+      "He always picks on the weak.",
+      "Why do you always pick on him?",
+      "She was picked on at school.",
+      "Don't pick on your sister."
+    ]
+  },
+  {
+    "word": "Put off",
+    "meaning": "Postponer / Posponer / Desanimar o dar repelús / Desconcertar",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "He kept putting off the call.",
+      "Never put off until tomorrow what you can accomplish with discipline today.",
+      "The board meeting was put off until Friday due to the president's illness.",
+      "The unpleasant odor coming from the kitchen put me off eating entirely.",
+      "His arrogant and aggressive tone really put off potential business investors.",
+      "Don't be put off by initial difficulties; language mastery requires patience.",
+      "Stop putting it off.",
+      "The meeting was put off."
+    ]
+  },
+  {
+    "word": "Put up with",
+    "meaning": "Aguantar / Tolerar / Tolerar / Aguantar una situación o persona desagradable / Aguantar / Tolerar / Aguantar una situación o persona desagradable",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "He put up with the noise for months.",
+      "I refuse to put up with his continuous insolence and chronic tardiness.",
+      "How do you put up with the deafening traffic noise outside your apartment?",
+      "She has put up with difficult working conditions for years without complaining.",
+      "A healthy relationship cannot survive if one partner has to put up with deceit.",
+      "Tenants should not have to put up with a leaking roof and broken heating.",
+      "I can't put up with this.",
+      "She puts up with a lot."
+    ]
+  },
+  {
+    "word": "Put together",
+    "meaning": "Armar / Organizar",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "We put together a plan.",
+      "Put it together carefully.",
+      "She put together a great team.",
+      "Can you put together a report?",
+      "He put together the furniture himself."
+    ]
+  },
+  {
+    "word": "Put down",
+    "meaning": "Insultar / Dejar / Dejar en el suelo / Menospreciar o humillar / Sacrificar a un animal enfermo",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Stop putting yourself down.",
+      "Put down that heavy cardboard box before you hurt your lumbar back.",
+      "A cruel manager continually puts down his subordinates to feel powerful.",
+      "The veterinarian gently explained that it was time to put our elderly dog down.",
+      "Put down your mobile phones and pay attention to the seminar speaker.",
+      "She put down a ten-percent financial deposit on the new downtown apartment.",
+      "Don't put me down.",
+      "Put it down on the table."
+    ]
+  },
+  {
+    "word": "Put on",
+    "meaning": "Ponerse / Fingir / Ponerse ropa/calzado / Subir de peso / Montar un espectáculo / Fingir / Ponerse / Fingir / Ponerse ropa / calzado / Subir de peso / Montar un espectáculo",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Don't put on airs with me.",
+      "Put on your warm woolen coat; the temperature has dropped below freezing.",
+      "He put on ten kilograms of lean muscle after a year of weightlifting.",
+      "The local drama society is putting on a production of Hamlet this winter.",
+      "She is not truly grieving; she is just putting on a dramatic act for sympathy.",
+      "Can you put on some soothing classical music while we prepare dinner?",
+      "Put on your shoes.",
+      "She's putting on an act."
+    ]
+  },
+  {
+    "word": "Run out of",
+    "meaning": "Quedarse sin / Quedarse sin existencias de algo (tiempo, dinero, combustible)",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "We're running out of fuel.",
+      "We must pull into the nearest gas station; we are running out of fuel.",
+      "Hurry up and conclude your presentation; we are quickly running out of time.",
+      "The hospital nearly ran out of oxygen tanks during the winter epidemic.",
+      "He ran out of excuses when presented with the security camera footage.",
+      "I wanted to bake a cake, but I realized I had completely run out of eggs.",
+      "We ran out of time.",
+      "I ran out of money."
+    ]
+  },
+  {
+    "word": "Run into",
+    "meaning": "Encontrarse con / Tropezar por casualidad con alguien / Chocar contra / Encontrarse con problemas",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "You'll run into this issue again.",
+      "Guess who I ran into while shopping at the supermarket yesterday?",
+      "The delivery van skidded on the wet ice and ran into a concrete lamppost.",
+      "We ran into unexpected legal obstacles while registering our company trademark.",
+      "If you undertake complex renovations, you will inevitably run into delays.",
+      "I ran into an old university professor at the international conference.",
+      "I ran into my ex.",
+      "We ran into some problems."
+    ]
+  },
+  {
+    "word": "Run away",
+    "meaning": "Escaparse / Huir",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Don't run away from problems.",
+      "He ran away from home at 16.",
+      "She ran away from the scene.",
+      "Stop running away from me!",
+      "They ran away before the police arrived."
+    ]
+  },
+  {
+    "word": "Run over",
+    "meaning": "Atropellar / Repasar",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "Let's run over the plan.",
+      "He was run over by a car.",
+      "Can we run over the details again?",
+      "She almost got run over.",
+      "Run over your notes before the exam."
+    ]
+  },
+  {
+    "word": "Get over",
+    "meaning": "Superar / Superar una enfermedad, pérdida, ruptura o impresión",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "I can't get over how good that was.",
+      "It took her two full weeks to get over that severe strain of influenza.",
+      "He has never truly gotten over the heartbreak of that broken engagement.",
+      "I still can't get over how magnificent the Andean mountain views were.",
+      "You need to get over your fear of public speaking to advance your career.",
+      "Give yourself time to mourn; you don't have to get over a tragedy overnight.",
+      "Get over it.",
+      "She got over the breakup fast."
+    ]
+  },
+  {
+    "word": "Get along",
+    "meaning": "Llevarse bien",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "We get along well.",
+      "Do you get along with your boss?",
+      "They don't get along at all.",
+      "She gets along with everyone.",
+      "How are you getting along?"
+    ]
+  },
+  {
+    "word": "Get away",
+    "meaning": "Escaparse",
+    "category": "Phrasal Verbs",
+    "examples": [
+      "He got away with it.",
+      "Let's get away for the weekend.",
+      "She managed to get away.",
+      "The thief got away.",
+      "We need to get away from here now."
+    ]
+  },
+  {
+    "word": "Get

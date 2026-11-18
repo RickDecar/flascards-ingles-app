@@ -1,0 +1,123 @@
+[
+  {
+    "word": "Attaboy",
+    "meaning": "¡Así se hace! / ¡Bien hecho!",
+    "category": "Expresiones",
+    "examples": [
+      "Attaboy! That was perfect!",
+      "Attaboy, you nailed it!",
+      "The coach shouted attaboy after the goal.",
+      "Attaboy, keep it up!",
+      "He gave me an attaboy for finishing early."
+    ]
+  },
+  {
+    "word": "Shed (light)",
+    "meaning": "Arrojar luz / Aclarar",
+    "category": "Verbos",
+    "examples": [
+      "Could you shed some light on this?",
+      "The report shed light on the issue.",
+      "She shed light on what really happened.",
+      "His testimony shed light on the crime.",
+      "Can you shed any light on why she left?"
+    ]
+  },
+  {
+    "word": "Bury",
+    "meaning": "Enterrar / Sepultar",
+    "category": "Verbos",
+    "examples": [
+      "History will bury us.",
+      "They buried him in the backyard.",
+      "She buried the truth for years.",
+      "Don't bury your feelings.",
+      "He was buried in work all week.",
+      "Where did you bury your money?"
+    ]
+  },
+  {
+    "word": "Piss off",
+    "meaning": "¡Vete a la mierda! / Estar harto",
+    "category": "Expresiones",
+    "examples": [
+      "Piss off, I'm busy!",
+      "That really pissed me off.",
+      "She was pissed off about the delay.",
+      "He told his boss to piss off.",
+      "Stop doing that, it pisses me off."
+    ]
+  },
+  {
+    "word": "Treachery",
+    "meaning": "Traición / Perfidia",
+    "category": "Sustantivos",
+    "examples": [
+      "His treachery shocked everyone.",
+      "An act of treachery destroyed the alliance.",
+      "She couldn't forgive such treachery.",
+      "The king punished all acts of treachery.",
+      "Treachery runs deep in this family."
+    ]
+  },
+  {
+    "word": "Depict",
+    "meaning": "Representar / Retratar / Mostrar",
+    "category": "Verbos",
+    "examples": [
+      "This depicts the god Anubis.",
+      "The film depicts life in the 80s.",
+      "This painting depicts a brutal battle.",
+      "The series depicts medieval politics perfectly.",
+      "How does the book depict its villain?"
+    ]
+  },
+  {
+    "word": "Footage",
+    "meaning": "Imágenes / Grabación / Material de video",
+    "category": "Sustantivos",
+    "examples": [
+      "Security footage showed the suspect.",
+      "They found footage from the crime scene.",
+      "The raw footage was never aired.",
+      "Check the security footage from last night.",
+      "We reviewed hours of footage."
+    ]
+  },
+  {
+    "word": "Woge",
+    "meaning": "Revelar forma Wesen (Grimm)",
+    "category": "Grimm",
+    "examples": [
+      "He just woged!",
+      "She woged right in front of me.",
+      "Nick saw him woge in the alley.",
+      "Don't woge here, someone will see you.",
+      "Monroe woged to scare them off."
+    ]
+  },
+  {
+    "word": "Compromised",
+    "meaning": "Comprometido / Vulnerado / Hackeado",
+    "category": "Adjetivos",
+    "examples": [
+      "The camera has been compromised.",
+      "His cover was compromised.",
+      "The entire network is compromised.",
+      "Her phone was compromised last night.",
+      "Don't use it, it's compromised."
+    ]
+  },
+  {
+    "word": "Actually",
+    "meaning": "En realidad / De hecho",
+    "category": "Alta frecuencia",
+    "examples": [
+      "Actually, I disagree.",
+      "It's actually quite simple.",
+      "I actually liked the ending.",
+      "Actually, that's not what happened.",
+      "He's actually a pretty good guy."
+    ]
+  }
+]
